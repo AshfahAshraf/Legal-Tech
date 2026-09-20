@@ -1,0 +1,89 @@
+# =============================================================
+# LegalTech — Development Docker Compose Override
+# =============================================================
+# This file EXTENDS docker-compose.yml for local development.
+# It overrides specific settings to enable hot-reload and
+# source-code volume mounts.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# Or use the shorthand (see DOCKER.md):
+#   ./dev.sh up
+#
+# NOTE: Uses .env.local for all environment variables.
+# =============================================================
+
+name: legaltech
+
+services:
+
+  # ── Backend: Development overrides ────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: legaltech_backend_dev
+    restart: "no"
+
+    # Use local dev environment file
+    env_file:
+      - .env.local
+
+    environment:
+      - DB_HOST=shared-mysql
+
+    # Mount source code for hot-reload
+    volumes:
+      - ./backend:/app
+
+    # Override CMD with --reload for development
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --log-level debug
+
+    ports:
+      - "8000:8000"
+
+    networks:
+      - shared-db-network
+
+    # Disable health check in dev (faster startup)
+    healthcheck:
+      disable: true
+
+  # ── Frontend: Development overrides ───────────────────────
+  frontend:
+    image: node:22-alpine
+    container_name: legaltech_frontend_dev
+    restart: "no"
+    working_dir: /app
+
+    # Mount source code for hot-reload; preserve container's node_modules
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NODE_ENV=development
+
+    command: sh -c "npm install && npm run dev"
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - backend
+
+    networks:
+      - shared-db-network
+
+# ── Networks ───────────────────────────────────────────────
+networks:
+  # In dev, we only need the shared-db-network (no separate legaltech_network)
+  shared-db-network:
+    external: true

@@ -1,0 +1,59 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Environment files (never bake secrets into the image)
+.env
+.env.*
+!.env.example
+
+# Local SQLite databases (production uses MySQL)
+*.db
+*.sqlite
+*.sqlite3
+
+# Test files
+tests/
+test_*.py
+*_test.py
+
+# Scratch / dev-only scripts
+scratch/
+scratch*.py
+fix_*.py
+update_*.py
+rewrite_*.py
+seed_client.py
+seed_lawfirm.py
+seed_senior_advocate.py
+test_*.py
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Alembic (keep the migrations; exclude local dev artifacts)
+alembic/__pycache__/
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal-Tech CRM & ERP Ecosystem — Documentation</title>
+  <meta name="description" content="Comprehensive single-page documentation for the Legal-Tech CRM & ERP Ecosystem — a unified platform for law firms covering case management, AI drafting, automated notifications, and role-based access control." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400..900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0B1D35;
+      --navy-mid:  #112544;
+      --indigo:    #1E3A6E;
+      --blue:      #2563EB;
+      --blue-lt:   #3B82F6;
+      --cyan:      #06B6D4;
+      --gold:      #F59E0B;
+      --green:     #10B981;
+      --rose:      #F43F5E;
+      --slate:     #64748B;
+      --slate-lt:  #94A3B8;
+      --border:    rgba(255,255,255,0.08);
+      --card-bg:   rgba(255,255,255,0.04);
+      --radius:    14px;
+      --radius-sm: 8px;
+      --font-sans: 'Inter', sans-serif;
+      --font-legaltech: 'Orbitron', 'Space Grotesk', 'Rajdhani', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: #E2E8F0;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .font-legaltech {
+      font-family: var(--font-legaltech);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 3px; }
+
+    /* ─── STICKY NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,29,53,0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-legaltech);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-logo span.icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--slate-lt);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+
+    /* ─── WRAPPER ─── */
+    .page { max-width: 1280px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 100%, rgba(6,182,212,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.35);
+      color: var(--blue-lt);
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-badge .dot { width: 7px; height: 7px; background: var(--blue-lt); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--blue-lt), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      max-width: 660px;
+      margin: 0 auto 2.5rem;
+      color: var(--slate-lt);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .stat-num span { color: var(--cyan); }
+    .stat-label { font-size: 0.75rem; color: var(--slate-lt); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ─── SECTION TITLES ─── */
+    .section { padding: 4rem 0 2rem; }
+    .section-header { margin-bottom: 2.5rem; }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--cyan); border-radius: 1px; }
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .section-desc {
+      color: var(--slate-lt);
+      margin-top: 0.75rem;
+      max-width: 600px;
+      font-size: 0.95rem;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+      margin: 1rem 0 3rem;
+    }
+
+    /* ─── GRID HELPERS ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+
+    /* ─── CARD BASE ─── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      border-color: rgba(37,99,235,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    /* ─── TECHNOLOGY STACK ─── */
+    .tech-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .tech-card:hover {
+      border-color: rgba(37,99,235,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .tech-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .tech-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .tech-card p { font-size: 0.82rem; color: var(--slate-lt); line-height: 1.6; }
+    .tech-badge {
+      display: inline-block;
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.3);
+      color: var(--blue-lt);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── ROLE PORTALS ─── */
+    .role-card {
+      border-radius: var(--radius);
+      padding: 2rem;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .role-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .role-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .role-client { background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.08)); }
+    .role-client::before { background: linear-gradient(90deg, #10B981, #06B6D4); }
+    .role-senior { background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(109,40,217,0.08)); }
+    .role-senior::before { background: linear-gradient(90deg, #2563EB, #7C3AED); }
+    .role-junior { background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(239,68,68,0.08)); }
+    .role-junior::before { background: linear-gradient(90deg, #F59E0B, #EF4444); }
+
+    .role-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+    .role-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem; }
+    .role-path {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+    }
+    .role-goal { font-size: 0.82rem; color: var(--slate-lt); margin-bottom: 1rem; font-style: italic; }
+    .action-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .action-list li {
+      font-size: 0.82rem;
+      color: #CBD5E1;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .action-list li::before { content: '→'; color: var(--cyan); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── WORKFLOWS ─── */
+    .workflow-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .workflow-header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .wf-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .workflow-header h3 { font-size: 1rem; font-weight: 700; color: #fff; }
+    .workflow-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .wf-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .wf-step-num {
+      width: 26px; height: 26px;
+      background: rgba(37,99,235,0.2);
+      border: 1px solid rgba(37,99,235,0.35);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--blue-lt);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .wf-step p { font-size: 0.83rem; color: #CBD5E1; line-height: 1.65; }
+
+    /* ─── PROGRESS / STATUS TABLE ─── */
+    .status-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+    .status-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 1.25rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s;
+    }
+    .status-row:hover { border-color: rgba(255,255,255,0.15); }
+    .status-module { font-size: 0.85rem; font-weight: 600; color: #E2E8F0; }
+    .status-detail { font-size: 0.75rem; color: var(--slate-lt); margin-top: 3px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-done {
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: #34D399;
+    }
+    .badge-wip {
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: #FCD34D;
+    }
+    .badge-done::before { content: '✓'; }
+    .badge-wip::before { content: '⟳'; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-banner {
+      background: linear-gradient(135deg, rgba(37,99,235,0.18), rgba(6,182,212,0.12));
+      border: 1px solid rgba(37,99,235,0.3);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .progress-pct {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .progress-pct sup { font-size: 1.5rem; color: var(--cyan); }
+    .progress-right { flex: 1; min-width: 200px; }
+    .progress-label { font-size: 0.85rem; color: var(--slate-lt); margin-bottom: 0.75rem; }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.08);
+      border-radius: 50px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      width: 87%;
+      animation: growBar 1.5s ease-out;
+    }
+    @keyframes growBar { from { width: 0% } to { width: 87% } }
+    .progress-modules { font-size: 0.82rem; color: var(--slate-lt); margin-top: 0.6rem; }
+
+    /* ─── ROADMAP ─── */
+    .roadmap-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .roadmap-card:hover { border-color: rgba(37,99,235,0.4); transform: translateX(4px); }
+    .roadmap-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .roadmap-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .roadmap-card p { font-size: 0.82rem; color: var(--slate-lt); line-height: 1.65; }
+
+    /* ─── AIMS ─── */
+    .aim-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .aim-num {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .aim-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+    .aim-card p { font-size: 0.82rem; color: var(--slate-lt); line-height: 1.65; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-logo { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .footer-sub { font-size: 0.8rem; color: var(--slate); }
+
+    /* ─── PRINT ─── */
+    @media print {
+      nav { position: relative; }
+      .card:hover, .tech-card:hover, .role-card:hover,
+      .roadmap-card:hover, .status-row:hover { transform: none; box-shadow: none; }
+      body { background: #fff; color: #1e293b; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .page { padding: 0 1rem 4rem; }
+      .hero { padding: 3rem 0 2.5rem; }
+      .hero-stats { gap: 1.5rem; }
+      .progress-banner { flex-direction: column; gap: 1rem; }
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="icon">⚖️</span>
+      Legal-Tech ERP
+    </div>
+    <ul class="nav-links">
+      <li><a href="#aims">Aims</a></li>
+      <li><a href="#stack">Tech Stack</a></li>
+      <li><a href="#roles">Roles</a></li>
+      <li><a href="#workflows">Workflows</a></li>
+      <li><a href="#status">Completion</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<div class="page">
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Official Project Documentation — v1.0
+    </div>
+    <h1>Legal-Tech <span>CRM & ERP</span><br/>Ecosystem</h1>
+    <p class="hero-sub">
+      A unified, AI-powered platform that centralizes all operations of a modern law firm —
+      case management, automated reminders, secure role-based access, and Gemini-assisted document drafting under one roof.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">87<span>%</span></div>
+        <div class="stat-label">Complete</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Modules</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Role Portals</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-label">Permissions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 1. PROJECT AIMS ═══════════════════════════════ -->
+  <section class="section" id="aims">
+    <div class="section-header">
+      <div class="section-tag">01 — Overview</div>
+      <h2 class="section-title">Project Aims</h2>
+      <p class="section-desc">Four primary goals that drive every design and engineering decision in this ecosystem.</p>
+    </div>
+    <div class="grid-2">
+      <div class="aim-card card">
+        <div class="aim-num">1</div>
+        <div>
+          <h3>Bridge the Communication Gap</h3>
+          <p>Create synchronized real-time portals for Clients, Senior Advocates, and Junior Advocates — ensuring every stakeholder stays informed and connected at all times.</p>
+        </div>
+      </div>
+      <div class="aim-card card">
+        <div class="aim-num">2</div>
+        <div>
+          <h3>Automate Routine Overhead</h3>
+          <p>Offload repetitive document drafting tasks using generative AI (Gemini) and automate client hearing alerts via background notification schedulers.</p>
+        </div>
+      </div>
+      <div class="aim-card card">
+        <div class="aim-num">3</div>
+        <div>
+          <h3>Ensure Reliable Case Reminders</h3>
+          <p>Keep clients and assigned advocates updated about court dates dynamically with automated email notifications sent at 5-day, 2-day, and 1-day intervals before hearings.</p>
+        </div>
+      </div>
+      <div class="aim-card card">
+        <div class="aim-num">4</div>
+        <div>
+          <h3>Enforce Dynamic Security</h3>
+          <p>Provide a real-time editable roles and permissions matrix allowing granular access management at a module-specific level for all three user roles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════ 2. TECH STACK ═══════════════════════════════ -->
+  <section class="section" id="stack">
+    <div class="section-header">
+      <div class="section-tag">02 — Architecture</div>
+      <h2 class="section-title">Core Technology Stack</h2>
+      <p class="section-desc">A lightweight, modern web architecture designed for secure, real-time legal operations.</p>
+    </div>
+    <div class="grid-3">
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(6,182,212,0.15);">⚛️</div>
+        <div>
+          <h3>Frontend</h3>
+          <span class="tech-badge">Next.js (React)</span>
+          <p style="margin-top:0.5rem;">Tailwind CSS v4 and Lucide Icons providing a modern, responsive, user-friendly interface for dashboards and legal management modules.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(37,99,235,0.15);">🐍</div>
+        <div>
+          <h3>Backend</h3>
+          <span class="tech-badge">FastAPI (Python)</span>
+          <p style="margin-top:0.5rem;">Asynchronous routing and SQLAlchemy ORM enabling high-performance API development, efficient request handling, and scalable backend operations.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(16,185,129,0.15);">🗄️</div>
+        <div>
+          <h3>Database</h3>
+          <span class="tech-badge">MySQL</span>
+          <p style="margin-top:0.5rem;">Configured with connection pooling, automated schema validation, and migration helper scripts to ensure reliable data storage and integrity during application startup.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(245,158,11,0.15);">🤖</div>
+        <div>
+          <h3>AI Drafting Engine</h3>
+          <span class="tech-badge">Gemini Flash</span>
+          <p style="margin-top:0.5rem;">Google Gemini API (gemini-flash-latest) integrated to generate legal drafts, pleadings, notices, and provide AI-assisted document drafting for advocates.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(124,58,237,0.15);">🔐</div>
+        <div>
+          <h3>Security & Auth</h3>
+          <span class="tech-badge">JWT + Bcrypt</span>
+          <p style="margin-top:0.5rem;">JWT for secure authentication, Passlib/Bcrypt for password hashing, and a dynamic role-based permission system supporting all three access tiers with protected routes.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(244,63,94,0.15);">⏰</div>
+        <div>
+          <h3>Scheduler & Notifications</h3>
+          <span class="tech-badge">APScheduler + SMTP</span>
+          <p style="margin-top:0.5rem;">Background worker configured to execute scheduled tasks and automatically send hearing reminders and case notifications through Google SMTP email services.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(6,182,212,0.15);">🏛️</div>
+        <div>
+          <h3>eCourts Integration</h3>
+          <span class="tech-badge">CNR / Research</span>
+          <p style="margin-top:0.5rem;">System architecture designed to support eCourts India case retrieval using the 16-character CNR (Case Number Record), with database schema and UI prepared for future live API integration.</p>
+        </div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:rgba(16,185,129,0.15);">🐳</div>
+        <div>
+          <h3>Deployment</h3>
+          <span class="tech-badge">Docker + Compose</span>
+          <p style="margin-top:0.5rem;">Dockerized application using Dockerfile, docker-compose.yml, and docker-compose.dev.yml for simplified development, testing, and production deployment across multiple environments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════ 3. ROLES ═══════════════════════════════ -->
+  <section class="section" id="roles">
+    <div class="section-header">
+      <div class="section-tag">03 — Workspaces</div>
+      <h2 class="section-title">Roles & Target Workspaces</h2>
+      <p class="section-desc">Legal-Tech operates as a unified clinic with custom workspaces for three distinct roles, each with tailored capabilities.</p>
+    </div>
+    <div class="grid-3">
+      <div class="role-card role-client">
+        <span class="role-emoji">👤</span>
+        <div class="role-title">Client Portal</div>
+        <div class="role-path">/client-dashboard</div>
+        <div class="role-goal">Digital client empowerment, email updates, and case status transparency.</div>
+        <ul class="action-list">
+          <li>Track active cases and view hearing schedules</li>
+          <li>Request and manage case-related discussions</li>
+          <li>Upload, view, and download case documents</li>
+          <li>Receive automated email notifications for hearing reminders</li>
+          <li>Monitor case status updates in real time</li>
+        </ul>
+      </div>
+      <div class="role-card role-senior">
+        <span class="role-emoji">⚖️</span>
+        <div class="role-title">Senior Advocate Workspace</div>
+        <div class="role-path">/dashboard</div>
+        <div class="role-goal">High-level practice administration, case creation, and law firm management.</div>
+        <ul class="action-list">
+          <li>Register new cases with detailed client profiles</li>
+          <li>Assign cases and tasks to Junior Advocates</li>
+          <li>Monitor case progress and hearing schedules via calendar</li>
+          <li>Create and manage user accounts</li>
+          <li>Configure role-based permissions across all modules</li>
+          <li>Oversee overall legal operations</li>
+        </ul>
+      </div>
+      <div class="role-card role-junior">
+        <span class="role-emoji">📋</span>
+        <div class="role-title">Junior Advocate Workspace</div>
+        <div class="role-path">/junior-dashboard</div>
+        <div class="role-goal">Efficient execution of assigned cases and hearing coordination.</div>
+        <ul class="action-list">
+          <li>Access assigned case details</li>
+          <li>Monitor hearing schedules</li>
+          <li>Update case and client information</li>
+          <li>Manage case documents</li>
+          <li>Record task progress and outcomes</li>
+          <li>Receive automated hearing reminder emails</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════ 4. WORKFLOWS ═══════════════════════════════ -->
+  <section class="section" id="workflows">
+    <div class="section-header">
+      <div class="section-tag">04 — Core Workflows</div>
+      <h2 class="section-title">Three Core Workflows</h2>
+      <p class="section-desc">End-to-end processes that define how legal work flows through the system from creation to notification.</p>
+    </div>
+    <div class="grid-3">
+      <!-- WF 1 -->
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="wf-num" style="background:rgba(16,185,129,0.2);color:#34D399;">1</div>
+          <h3>Case Creation & Consultation Scheduling</h3>
+        </div>
+        <div class="workflow-body">
+          <div class="wf-step">
+            <div class="wf-step-num">1</div>
+            <p>The Senior Advocate creates a new case by entering client information, case details, uploading relevant documents, and assigning the case profile within the system.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">2</div>
+            <p>When a case discussion is required, the Senior Advocate or Client can schedule a consultation by selecting a preferred mode — Video Call, Face-to-Face Meeting, or WhatsApp Chat.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">3</div>
+            <p>The system supports booking, rescheduling, and updating consultation statuses while automatically synchronizing the calendar and sending notifications to relevant users.</p>
+          </div>
+        </div>
+      </div>
+      <!-- WF 2 -->
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="wf-num" style="background:rgba(37,99,235,0.2);color:#60A5FA;">2</div>
+          <h3>Case Assignment & Hearing Management</h3>
+        </div>
+        <div class="workflow-body">
+          <div class="wf-step">
+            <div class="wf-step-num">1</div>
+            <p>The Senior Advocate registers a new case, assigns the client, uploads case documents, and records hearing details and important case information.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">2</div>
+            <p>The Senior Advocate assigns the case to a Junior Advocate by specifying assignment details, priority level (High, Medium, or Low), and work instructions.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">3</div>
+            <p>The assigned case is automatically reflected in the Junior Advocate's dashboard, while hearing schedules are synchronized with the calendar and notification system.</p>
+          </div>
+        </div>
+      </div>
+      <!-- WF 3 -->
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="wf-num" style="background:rgba(245,158,11,0.2);color:#FCD34D;">3</div>
+          <h3>Automated Hearing Reminders & Notifications</h3>
+        </div>
+        <div class="workflow-body">
+          <div class="wf-step">
+            <div class="wf-step-num">1</div>
+            <p>The Senior Advocate updates hearing dates, case status, and other important information through the Case Management dashboard.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">2</div>
+            <p>The APScheduler background service performs scheduled daily checks to identify upcoming hearings and important case milestones.</p>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">3</div>
+            <p>The system automatically sends responsive HTML email notifications to the registered client and assigned Junior Advocate at <strong>5-day</strong>, <strong>2-day</strong>, and <strong>1-day</strong> intervals before the scheduled hearing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════ 5. STATUS ═══════════════════════════════ -->
+  <section class="section" id="status">
+    <div class="section-header">
+      <div class="section-tag">05 — Readiness Report</div>
+      <h2 class="section-title">Project Completion Status</h2>
+      <p class="section-desc">Current operational status of every module and component in the ecosystem.</p>
+    </div>
+
+    <div class="progress-banner">
+      <div class="progress-pct">87<sup>%</sup></div>
+      <div class="progress-right">
+        <div class="progress-label">Overall Project Completion — 14 of 15 modules fully operational</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill"></div>
+        </div>
+        <div class="progress-modules">1 module in research phase (eCourts Live API Sync — 25%)</div>
+      </div>
+    </div>
+
+    <div class="status-grid">
+      <div class="status-row">
+        <div>
+          <div class="status-module">Authentication & Core Router</div>
+          <div class="status-detail">JWT token auth, bcrypt encryption, client &amp; staff route guards, CORS middleware</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Dynamic Permissions System</div>
+          <div class="status-detail">Multi-tier permission management (View, Add, Edit, Delete) across 20 modules with custom user permission overrides</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Client Workspace & Tracking</div>
+          <div class="status-detail">Dynamic client dashboard with real-time case tracking, document viewing, profile management, and progress updates</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Advocate Workspace & Law Firm Management</div>
+          <div class="status-detail">Bar Council ID, specialization, chamber info, advocate assignment, junior allocation, and case management</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Case Management</div>
+          <div class="status-detail">Case creation, client assignment, advocate allocation, document management, hearing scheduling, and status tracking</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Consultation Management</div>
+          <div class="status-detail">Consultation booking, appointment approval, rescheduling, consultation history, and automatic notification management</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Calendar & Hearing Management</div>
+          <div class="status-detail">Hearing schedules auto-synchronized with calendar, upcoming hearing reminders, and schedule management</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Finance Management</div>
+          <div class="status-detail">Invoice generation, payment tracking, pending payments, revenue calculation, and financial reporting</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Document Management</div>
+          <div class="status-detail">Secure upload, storage, viewing, downloading, and management of legal documents (images and PDFs)</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Notification System</div>
+          <div class="status-detail">Automatic email notifications from multiple modules — case updates, consultation updates, hearing schedules, document changes</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Hearing Reminder Worker</div>
+          <div class="status-detail">APScheduler daily checks — responsive HTML email reminders at 5-day, 2-day, and 1-day intervals before hearings</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Profile & Permission Management</div>
+          <div class="status-detail">User profile management with secure role-based access control and customizable permissions for all user roles</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">Dashboard & Analytics</div>
+          <div class="status-detail">Interactive dashboards with advocate stats, active/pending cases, upcoming hearings, recent activities, and document summaries</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">DevOps / Containerization</div>
+          <div class="status-detail">Docker and Docker Compose configurations for simplified deployment and multi-container orchestration</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">AI Document Generator</div>
+          <div class="status-detail">Integrated with Google Gemini API (gemini-flash-latest) for AI-based legal document generation; client-side PDF export via jsPDF</div>
+        </div>
+        <span class="badge badge-done">100% Complete</span>
+      </div>
+      <div class="status-row">
+        <div>
+          <div class="status-module">eCourts Live API Sync</div>
+          <div class="status-detail">Database schema and UI support for CNR numbers completed. Live integration under research due to third-party API availability and CAPTCHA challenges</div>
+        </div>
+        <span class="badge badge-wip">25% — Research</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════ 6. ROADMAP ═══════════════════════════════ -->
+  <section class="section" id="roadmap">
+    <div class="section-header">
+      <div class="section-tag">06 — Next Steps</div>
+      <h2 class="section-title">Immediate Roadmap</h2>
+      <p class="section-desc">Upcoming implementation sprints planned for the next development cycle.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="roadmap-card">
+        <div class="roadmap-icon" style="background:rgba(245,158,11,0.15);">🧠</div>
+        <div>
+          <h3>AI Legal Assistant</h3>
+          <p>Integrate a comprehensive, AI-powered conversational legal assistant into both Advocate and Client dashboards. The assistant will support multi-turn conversations, provide legal information, answer procedural queries, assist with legal document drafting, and offer intelligent case-related guidance.</p>
+        </div>
+      </div>
+      <div class="roadmap-card">
+        <div class="roadmap-icon" style="background:rgba(16,185,129,0.15);">💬</div>
+        <div>
+          <h3>WhatsApp Business Integration</h3>
+          <p>Integrate the WhatsApp Business API to enable automated notifications for hearing reminders, case status updates, consultation booking and rescheduling alerts, payment notifications, and direct communication between advocates and clients through WhatsApp.</p>
+        </div>
+      </div>
+      <div class="roadmap-card">
+        <div class="roadmap-icon" style="background:rgba(37,99,235,0.15);">🏛️</div>
+        <div>
+          <h3>eCourts India API Integration</h3>
+          <p>Implement backend synchronization services and API connectors with the eCourts India platform to automatically retrieve and update case information using CNR (Case Number Record) numbers, providing real-time court updates, hearing schedules, case status, and registry information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end .page -->
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Legal-Tech CRM & ERP Ecosystem</div>
+    <div class="footer-sub">Project Documentation — Current Build: 87% Complete &nbsp;·&nbsp; Generated 2026 &nbsp;·&nbsp; Marketbytes DevOps</div>
+  </div>
+</footer>
+
+</body>
+</html>

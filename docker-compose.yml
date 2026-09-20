@@ -1,0 +1,98 @@
+# =============================================================
+# LegalTech — Production Docker Compose
+# =============================================================
+# Usage:
+#   docker compose -f docker-compose.yml up -d --build
+#
+# Prerequisites:
+#   - .env.production file must exist and be filled in
+#   - The 'shared-db-network' external network must exist
+#   - The 'shared-mysql' container must be running
+#
+# Ports used (unique to this project — do not conflict with others):
+#   Frontend : host 7500 → container 80
+#   Backend  : host 7501 → container 8000
+# =============================================================
+
+name: legaltech
+
+services:
+
+  # ── Backend: FastAPI ───────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: legaltech_backend
+    restart: unless-stopped
+
+    env_file:
+      - ./backend/.env.production
+
+    # Explicit environment overrides (ensures DB_HOST is always correct)
+    environment:
+      - DB_HOST=shared-mysql
+
+    networks:
+      - legaltech_network
+      - shared-db-network
+
+    ports:
+      - "7501:8000"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ── Frontend: Next.js (static) + Nginx ────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: legaltech_frontend
+    restart: unless-stopped
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    networks:
+      - legaltech_network
+
+    ports:
+      - "7500:3000"
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ── Networks ───────────────────────────────────────────────
+networks:
+  # Internal network for legaltech services only
+  legaltech_network:
+    name: legaltech_network
+    driver: bridge
+
+  # External shared network where shared-mysql lives
+  # This network was created by another project — do not recreate it.
+  shared-db-network:
+    external: true
